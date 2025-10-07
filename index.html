@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lộ trình Workshop: Nhà Vô Địch Nhân Tài</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Oswald -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Apply Oswald font to the entire application */
+        body {
+            font-family: 'Oswald', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        /* Custom color variables for consistency */
+        :root {
+            --color-orange: #FF9800;
+            --color-green: #009688;
+            --color-blue-light: #5C6BC0;
+            --color-blue-dark: #1a237e;
+            --color-break: #795548;
+        }
+
+        /* Custom styles for the vertical timeline and animations */
+        .timeline-item {
+            border-left: 3px solid var(--color-blue-light);
+            transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .timeline-item.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .timeline-dot {
+            position: absolute;
+            top: 1.25rem;
+            left: -11px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--color-orange);
+            border: 3px solid #f8fafc; /* bg-slate-50 */
+        }
+
+        /* Styling for the accordion content */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out;
+            background-color: #f8fafc; /* bg-slate-50 */
+        }
+        
+        /* Gradient for header */
+        .header-gradient {
+            background: linear-gradient(135deg, var(--color-blue-dark) 0%, var(--color-blue-light) 100%);
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--color-blue-light);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--color-blue-dark);
+        }
+    </style>
+</head>
+
+<body class="bg-slate-50">
+
+    <div class="container mx-auto px-4 py-8 md:py-16">
+
+        <!-- Header Section -->
+        <header class="text-center mb-12 md:mb-20">
+            <h1 class="text-4xl md:text-6xl font-bold uppercase tracking-wider" style="color: var(--color-blue-dark);">
+                Nhà Vô Địch Nhân Tài
+            </h1>
+            <p class="text-xl md:text-2xl mt-3 font-light tracking-wide" style="color: var(--color-blue-light);">
+                Kịch bản Workshop Chi tiết (3 giờ)
+            </p>
+        </header>
+
+        <!-- Main Timeline Container -->
+        <div class="relative wrap overflow-hidden p-4 md:p-10 h-full">
+            <!-- Timeline items will be injected here by JavaScript -->
+        </div>
+
+    </div>
+
+    <!-- Footer Section -->
+    <footer class="text-center p-6 mt-12 text-white" style="background-color: var(--color-blue-dark);">
+        <p class="font-semibold text-lg">Rosie Đào Hạnh Giang</p>
+        <p class="text-sm font-light">CEO Build Talents</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            // --- DATA SOURCE ---
+            const workshopPlan = [
+                {
+                    duration: '15 phút',
+                    module: 'Module 1: KHỞI ĐỘNG & THIẾT LẬP BỐI CẢNH',
+                    icon: 'fa-rocket',
+                    color: 'var(--color-orange)',
+                    activities: [
+                        { 
+                            title: 'Chào mừng & Giới thiệu (5 phút)',
+                            content: 'Giới thiệu bản thân và chủ đề "Nhà Vô địch Nhân tài".'
+                        },
+                        {
+                            title: 'Hoạt động Icebreaker (10 phút)',
+                            content: 'Đặt câu hỏi mở trên Kahoot: "Điều gì khiến bạn tự hào nhất về đội ngũ của mình?" để thu thập câu trả lời và hiển thị word cloud.'
+                        }
+                    ],
+                    notes: 'Tạo năng lượng tích cực, kết nối ngay từ đầu. Nối câu trả lời của học viên vào tầm quan trọng của việc xây dựng đội ngũ.'
+                },
+                {
+                    duration: '40 phút',
+                    module: 'Module 2: TẠI SAO PHẢI THAY ĐỔI? BỐI CẢNH MỚI & TƯ DUY CHIẾN LƯỢC',
+                    icon: 'fa-magnifying-glass-chart',
+                    color: 'var(--color-green)',
+                    activities: [
+                         {
+                            title: 'Dữ liệu Biết nói: Thấu hiểu Bối cảnh Nhân tài tại CMC TS (20 phút)',
+                            content: 'Trình bày những phát hiện và số liệu cốt lõi từ báo cáo "CMC TS Talent Insights". Tập trung vào các điểm "đau", cơ hội, và sự khác biệt giữa nhận thức nội bộ và thực tế thị trường.'
+                        },
+                        {
+                            title: 'Tư duy chiến lược (15 phút)',
+                            content: 'Giới thiệu "Bản đồ hành trình ứng viên", "Khoảnh khắc Sự thật", "Tháp nhu cầu của ứng viên tài năng", và "Hợp đồng tâm lý".'
+                        },
+                        {
+                            title: 'Thảo luận nhanh (5 phút)',
+                            content: 'Dựa trên dữ liệu vừa xem, theo cặp, chia sẻ: "Đâu là \'Khoảnh khắc Sự thật\' mà team bạn cần tập trung cải thiện nhất?"'
+                        }
+                    ],
+                    notes: 'Sử dụng dữ liệu từ Talent Insights để tạo "cú hích" mạnh mẽ và mang tính nội bộ. Liên kết trực tiếp các số liệu với sự cần thiết của các mô hình và công cụ sắp được giới thiệu.'
+                },
+                {
+                    type: 'break',
+                    duration: '10 phút',
+                    module: 'GIẢI LAO',
+                    icon: 'fa-coffee',
+                    color: 'var(--color-break)',
+                },
+                {
+                    duration: '60 phút',
+                    module: 'Module 3: LÀM THẾ NÀO? BỘ CÔNG CỤ THỰC CHIẾN',
+                    icon: 'fa-tools',
+                    color: 'var(--color-orange)',
+                    activities: [
+                        {
+                            title: 'Công cụ #1: Xây dựng EVP đội ngũ với C.H.I.Ế.N (30 phút)',
+                            content: '<strong>(10 phút) Trình bày:</strong> Giải thích chi tiết mô hình.<br><strong>(20 phút) Thực hành:</strong> Cá nhân tự trả lời câu hỏi, sau đó chia sẻ theo cặp để hoàn thiện câu chuyện EVP.'
+                        },
+                        {
+                            title: 'Công cụ #2: Phỏng vấn sắc bén với STAR+ (30 phút)',
+                            content: '<strong>(10 phút) Trình bày:</strong> Giải thích phương pháp STAR và yếu tố "+".<br><strong>(20 phút) Thực hành Role-play:</strong> Giao tình huống, mỗi người đóng vai HM và ứng viên, sau đó cùng nhau phản hồi.'
+                        }
+                    ],
+                    notes: 'Đây là phần quan trọng nhất. Quan sát, hỗ trợ các nhóm. Chọn cặp làm tốt để chia sẻ, tạo động lực.'
+                },
+                {
+                    duration: '25 phút',
+                    module: 'Module 4: LÀM GÌ TIẾP THEO? CAM KẾT & HÀNH ĐỘNG',
+                    icon: 'fa-flag-checkered',
+                    color: 'var(--color-green)',
+                    activities: [
+                        {
+                            title: 'Từ Quản lý đến Đại sứ Thương hiệu (10 phút)',
+                            content: 'Nhấn mạnh vai trò truyền cảm hứng, chia sẻ ý tưởng kích hoạt đội ngũ và giới thiệu Vòng lặp Cải tiến Liên tục.'
+                        },
+                        {
+                            title: 'Hoạt động "Cam kết 30 ngày" (10 phút)',
+                            content: 'Hướng dẫn học viên viết ra 1-3 hành động cụ thể. Khuyến khích họ chia sẻ cam kết với người bạn cặp.'
+                        },
+                        {
+                            title: 'Tổng kết (5 phút)',
+                            content: 'Đúc kết 3 thông điệp chính và lời kêu gọi hành động.'
+                        }
+                    ],
+                    notes: 'Tạo không khí lắng đọng, tập trung. Sử dụng giọng điệu truyền cảm hứng, chuẩn bị cho phần Q&A.'
+                },
+                {
+                    duration: '30 phút',
+                    module: 'Module 5: HỎI ĐÁP & KẾT NỐI SÂU',
+                    icon: 'fa-comments',
+                    color: 'var(--color-blue-dark)',
+                    activities: [
+                        {
+                            title: 'Phiên hỏi đáp mở (30 phút)',
+                            content: 'Giảng viên sẽ giải đáp mọi thắc mắc của học viên, đi sâu vào các tình huống thực tế tại CMC TS, và cung cấp những tư vấn chuyên sâu.'
+                        }
+                    ],
+                    notes: 'Đây là cơ hội vàng để giải quyết triệt để các băn khoăn của học viên. Khuyến khích các câu hỏi khó, tạo không gian an toàn để thảo luận cởi mở. Chuẩn bị sẵn một vài câu hỏi tình huống để "mồi" nếu cần.'
+                }
+            ];
+
+            const timelineContainer = document.querySelector('.relative.wrap');
+            
+            // --- DYNAMICALLY BUILD THE TIMELINE ---
+            workshopPlan.forEach(item => {
+                const isBreak = item.type === 'break';
+                
+                let activitiesHtml = '';
+                if (!isBreak) {
+                    activitiesHtml = item.activities.map(activity => `
+                        <div class="py-3 border-b border-gray-200 last:border-b-0">
+                            <h4 class="font-semibold text-lg mb-1" style="color: var(--color-blue-dark);">${activity.title}</h4>
+                            <p class="text-gray-700 leading-relaxed font-light">${activity.content}</p>
+                        </div>
+                    `).join('');
+                }
+
+                const accordionContent = isBreak ? '' : `
+                    <div class="accordion-content px-4 lg:px-6 pb-1">
+                        ${activitiesHtml}
+                        <div class="mt-4 p-3 bg-indigo-50 rounded-lg">
+                             <p class="text-sm font-semibold text-indigo-800"><i class="fas fa-lightbulb mr-2"></i>Ghi chú cho Giảng viên:</p>
+                             <p class="text-sm text-indigo-700 font-light italic">${item.notes}</p>
+                        </div>
+                    </div>`;
+                
+                const cursorStyle = isBreak ? '' : 'cursor-pointer';
+                const headerPadding = isBreak ? 'py-6' : 'py-4';
+
+                const itemHtml = `
+                    <div class="timeline-item mb-8 pl-8 relative">
+                        <div class="timeline-dot" style="background-color: ${item.color};"></div>
+                        <div class="bg-white rounded-lg shadow-xl overflow-hidden">
+                            <div class="accordion-header ${cursorStyle} flex justify-between items-center px-4 lg:px-6 ${headerPadding} transition-colors duration-300 hover:bg-slate-100" style="border-left: 5px solid ${item.color};">
+                                <div class="flex items-center">
+                                    <i class="fas ${item.icon} text-2xl w-8" style="color: ${item.color};"></i>
+                                    <div class="ml-4">
+                                        <h3 class="text-xl lg:text-2xl font-bold uppercase" style="color: var(--color-blue-dark);">${item.module}</h3>
+                                        <p class="text-sm font-medium tracking-wider" style="color: var(--color-blue-light);">${item.duration}</p>
+                                    </div>
+                                </div>
+                                ${!isBreak ? '<i class="accordion-icon fas fa-chevron-down text-gray-400 transition-transform duration-300"></i>' : ''}
+                            </div>
+                            ${accordionContent}
+                        </div>
+                    </div>
+                `;
+                timelineContainer.innerHTML += itemHtml;
+            });
+            
+            // --- INTERACTIVITY LOGIC ---
+            const accordionHeaders = document.querySelectorAll('.accordion-header');
+            accordionHeaders.forEach(header => {
+                if (!header.classList.contains('cursor-pointer')) return;
+
+                header.addEventListener('click', () => {
+                    const content = header.nextElementSibling;
+                    const icon = header.querySelector('.accordion-icon');
+                    
+                    if (content.style.maxHeight) {
+                        content.style.maxHeight = null;
+                        icon.classList.remove('rotate-180');
+                    } else {
+                        document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = null);
+                        document.querySelectorAll('.accordion-icon').forEach(i => i.classList.remove('rotate-180'));
+                        
+                        content.style.maxHeight = content.scrollHeight + "px";
+                        icon.classList.add('rotate-180');
+                    }
+                });
+            });
+
+            // --- SCROLL ANIMATION LOGIC ---
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            timelineItems.forEach(item => {
+                observer.observe(item);
+            });
+        });
+    </script>
+</body>
+
+</html>
+
